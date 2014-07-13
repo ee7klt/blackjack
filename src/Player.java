@@ -118,5 +118,15 @@ public class Player {
 				}
 	}
 	
-	// TO DO: Print sum of hand
+	
+	/**
+	 * Print total of player's hand
+	 */
+	public void printHandSum() {
+		int total = this.getHandSum();
+		System.out.printf("%s's total is currently: %d\n",this.name, total);
+		
+	}
+	
+	// TO DO: Print sum of hand. DONE
 }

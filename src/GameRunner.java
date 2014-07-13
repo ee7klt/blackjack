@@ -27,7 +27,10 @@ public class GameRunner {
 		
 		System.out.println("Cards dealt\n");
 		me.printHand(true);
+		me.printHandSum();
+		System.out.println("\n");
 		dealer.printHand(false);
+		//dealer.printHandSum();
 		
 		System.out.println("\n");
 
@@ -53,6 +56,7 @@ public class GameRunner {
 				// add next card in deck. if player is busted, we are done.
 				meDone = !me.addCard(theDeck.dealNextCard());
 				me.printHand(true);
+				me.printHandSum();
 				System.out.println();
 				
 			} else { // player stays
@@ -64,10 +68,13 @@ public class GameRunner {
 				if (dealer.getHandSum() > 17) {
 					System.out.println("The dealer stays.\n"); 
 					dealerDone = true;
+					dealer.printHand(false);
+					//dealer.printHandSum();
 				} else {
 					System.out.println("The Dealer hits\n");
 					dealerDone = !dealer.addCard(theDeck.dealNextCard());
 					dealer.printHand(false);
+					//dealer.printHandSum();
 				}
 			}
 			
@@ -78,9 +85,12 @@ public class GameRunner {
 		sc.close();
 		
 		// print final hands
-		
+		System.out.println("Final hands:");
 		me.printHand(true);
+		me.printHandSum();
+		System.out.println();
 		dealer.printHand(true);
+		dealer.printHandSum();
 		
 		int mySum = me.getHandSum();
 		int dealerSum = dealer.getHandSum();
@@ -92,17 +102,30 @@ public class GameRunner {
 		 * if we both bust, I lose
 		 */
 		
+		// push. money neither lost nor won
+		if (mySum == dealerSum && mySum <= 21 && dealerSum <= 21) { 
+			System.out.println("Push tie. Nobody wins!");
+		}
+		
+		
+		// my score is higher than dealer's
 		if (mySum > dealerSum && mySum <= 21) {
 			System.out.println("You win!");
-		} else if (dealerSum > 21) {
-			if (mySum > 21) {
-			   System.out.println("You lose!");
-			} else {
-				System.out.println("You win!");
-			} 
-			
-		} else {
-			System.out.println("You lose!");
+			if (mySum == 21) { // winning blackjack pays 1.5x
+				
+			}
+		} 
+		
+		// dealer's score is higher than mine
+		if (dealerSum > mySum && dealerSum <= 21) {
+			System.out.println("Dealer wins!");
+		}
+		
+		// I bust 
+		if (mySum > 21) {
+			System.out.println("Dealer wins!");
+		} else if (dealerSum >21) {  // dealer busts, but I don't
+			System.out.println("You win!");
 		}
 		
 	}
