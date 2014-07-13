@@ -10,6 +10,8 @@ public class Player {
 	 * player's name
 	 */
 	private String name;
+	private int chips;
+
 	
 	
 	/**
@@ -24,16 +26,59 @@ public class Player {
 	
 	
 	/**
-	 * Player constructor
+	 * Dealer constructor (overloads player constructor)
 	 * @param aName name of player
 	 */
 	public Player(String aName) {
+		this(aName,0);
+		
+	}
+	
+	
+	/**
+	 * Player constructor
+	 * @param aName name of player
+	 */
+	public Player(String aName, int numChips) {
 		this.name = aName;
+		this.chips = numChips;
+		
 		
 		//set a player's hand to empty
 		this.emptyHand();
 		
 	}
+	
+	
+	/**
+	 * add winnings to player's chips 
+	 * @param numChips number of chips to add
+	 */
+	public void incrementChips(int numChips) {
+		this.chips += numChips;
+	}
+	
+	/**
+	 * remove losings from player's chips
+	 * @param numChips number of chips to remove
+	 */
+	public void decrementChips(int numChips) {
+		this.chips -= numChips;
+		
+		if (this.chips <= 0) {
+		   System.err.printf("%s bankrupt. Cannot play anymore.\n", this.name );
+		   System.exit(1);
+		}
+	}
+	
+	/**
+	 * print number of chips left for player
+	 * 
+	 */
+	public void printChips() {
+		System.out.printf("%s has %d chips available",this.name,this.chips);
+	}
+	
 	
 	
 	/**
@@ -56,7 +101,7 @@ public class Player {
 		
 		//print error if we already have max number of cards
 		if (this.numCards == 10) {
-			System.err.printf("$s's hand already has max number of cards; "+" cannot add another\n", this.name);
+			System.err.printf("%s's hand already has max number of cards; "+" cannot add another\n", this.name);
 			System.exit(1);
 		}
 		
