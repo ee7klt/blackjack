@@ -26,7 +26,7 @@ public class Card {
 		    this.myNumber = aNumber;
 		} else {
 			
-			//modify this to throw exception
+			//TO DO: modify this to throw exception
 			System.err.println(aNumber + " is not a valid card number");
 			System.exit(1);
 		}

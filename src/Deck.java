@@ -106,7 +106,7 @@ public class Deck {
 	 * @return the card dealt.
 	 */
 	public Card dealNextCard() {
-		//if use top card is last index, can just pop, and garbage collect, instead of shifting all values
+		//TO DO: if use top card is last index, can just pop, and garbage collect, instead of shifting all values
 		
 		//get top card
 		Card top = this.myCards[0];
