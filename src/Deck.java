@@ -14,6 +14,7 @@ import java.util.Random;
 public class Deck {
 	/**
 	 * The array of cards in the deck, top card is first index.
+	 * 
 	 */
 	private Card[] myCards;
 	
@@ -81,7 +82,7 @@ public class Deck {
 		int j;
 		for (int i = 0; i < this.numCards; i++) {
 			
-			//get a random card j between 0 and i to swap i's value with
+			//get a random card j between 0 and i to swap i's value with. this is Knuth
 			j = rng.nextInt(i);
 			
 			//do swap
@@ -92,5 +93,43 @@ public class Deck {
 		
 		
 	}
+	
+	
+	/**
+	 * Deal the next card from the top of the deck.
+	 * @return the card dealt.
+	 */
+	public Card dealNextCard() {
+		//if use top card is last index, can just pop, and garbage collect, instead of shifting all values
+		
+		//get top card
+		Card top = this.myCards[0];
+		
+		//shift all cards to left by one
+		for (int c = 1; c < this.numCards; c++) {
+			this.myCards[c-1] = this.myCards[c];
+		}
+		this.myCards[this.numCards-1] = null;
+		
+		
+		//decrement number of cards in deck
+		this.numCards--;
+		
+		return top;
+	}
 
+	
+	
+	/**
+	 * Print the top cards in the deck.
+	 * 
+	 * @param numToPrint    the number of cards from the top of the deck to print.
+	 */
+	public void printDeck(int numToPrint) {
+		
+		for (int c = 0; c < numToPrint; c++) {
+			System.out.printf("% 3d/%d %s\n", c+1, this.numCards,this.myCards[c].toString());
+		}
+		System.out.printf("\t\t[%d other]\n", this.numCards-numToPrint);
+	}
 }

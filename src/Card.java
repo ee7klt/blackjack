@@ -25,6 +25,8 @@ public class Card {
 		if (aNumber  >= 1 && aNumber <= 13) {
 		    this.myNumber = aNumber;
 		} else {
+			
+			//modify this to throw exception
 			System.err.println(aNumber + " is not a valid card number");
 			System.exit(1);
 		}
