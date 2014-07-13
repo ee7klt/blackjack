@@ -26,9 +26,9 @@ public class Deck {
 	/**
 	 * Constructor with a default of one deck and no shuffling.
 	 */
-	public Deck() {
+	public Deck() { // overload: if called without arguments
 		
-		// call the other constructor, defining one deck without shuffling
+		// default to one deck without shuffling
 		this(1, false);
 	}
 	
@@ -83,7 +83,7 @@ public class Deck {
 		for (int i = 0; i < this.numCards; i++) {
 			
 			//get a random card j between 0 and i to swap i's value with. this is Knuth
-			j = rng.nextInt(i);
+			j = rng.nextInt(i+1);
 			
 			//do swap
 			temp = this.myCards[i];
@@ -92,6 +92,12 @@ public class Deck {
 		}
 		
 		
+	}
+	
+	public void testShuffle(int i) {
+		Random rng = new Random();
+		int j = rng.nextInt(i);
+		System.out.println(j);
 	}
 	
 	
@@ -130,6 +136,6 @@ public class Deck {
 		for (int c = 0; c < numToPrint; c++) {
 			System.out.printf("% 3d/%d %s\n", c+1, this.numCards,this.myCards[c].toString());
 		}
-		System.out.printf("\t\t[%d other]\n", this.numCards-numToPrint);
+		System.out.printf("\t[%d others]\n", this.numCards-numToPrint);
 	}
 }

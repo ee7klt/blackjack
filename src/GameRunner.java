@@ -2,7 +2,10 @@
 public class GameRunner {
 	
 	public static void main(String[] args) {
-       Deck myDeck = new Deck();
-       myDeck.printDeck(10);
+       
+		Deck myDeck = new Deck(1,true);
+       myDeck.printDeck(24);
+		
+		//myDeck.testShuffle(1);
 	}
 }
