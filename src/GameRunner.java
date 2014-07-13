@@ -1,7 +1,19 @@
 import java.util.Scanner;
 
-
+/**
+ * 
+ * Game will how throw error and quit if either there are no more cards in the deck
+ * if if player loses all his/her chips.
+ * TO DO: make it more friendly.
+ * 
+ * TO DO: Give option to continue playing or quit after each round.
+ * 
+ * 
+ * @author macgeekalex
+ *
+ */
 public class GameRunner {
+	
 	
 	public static void main(String[] args) {
        
@@ -14,33 +26,67 @@ public class GameRunner {
 		Deck theDeck = new Deck(1, true);
 		
 		//init the player
-		Player me = new Player("Alex");
+		Player me = new Player("Alex",100);
 		Player dealer = new Player("Dealer");
 		
-		me.addCard(theDeck.dealNextCard());
-		dealer.addCard(theDeck.dealNextCard());
-		me.addCard(theDeck.dealNextCard());
-		dealer.addCard(theDeck.dealNextCard());
 		
 		
+		
+		
+		int numChips = 1;
+		int numCards = 1;
+		
+		
+		//while (numChips >= 1 && numCards > 0) {
+			
+			me.addCard(theDeck.dealNextCard());
+			dealer.addCard(theDeck.dealNextCard());
+			me.addCard(theDeck.dealNextCard());
+			dealer.addCard(theDeck.dealNextCard());
+			
+		
+			
+			// flags for when each player is finished hitting
+			boolean meDone = false;
+			boolean dealerDone = false;
+			String ans = null;       // hit or stand
+			int bet = 0;           // number of chips to bet
+			numChips = me.getChips();  //number of chips left
+			numCards = theDeck.getNumCards(); //number of cards left in deck
+			
+			
+			//ask for bet amount
+			while (bet < 1 || bet >= numChips) {
+				me.printChips();
+				System.out.println();
+				  System.out.print("How many chips would you like to bet? (minimum 1): ");
+				if (bet < 1) {
+					System.out.print("Please bet a minimum of 1 chip.\n");
+				}
+				if (bet > numChips) {
+					System.out.printf("You have only %d chips", numChips);
+				}
+		
+			  bet = sc.nextInt();
+			}
+			
 		//print initial hands
 		
 		System.out.println("Cards dealt\n");
 		me.printHand(true);
 		me.printHandSum();
+		//me.printChips();
 		System.out.println("\n");
 		dealer.printHand(false);
 		//dealer.printHandSum();
 		
 		System.out.println("\n");
 
-		
-		// flags for when each player is finished hitting
-		boolean meDone = false;
-		boolean dealerDone = false;
-		String ans = null;
+	
 		
 		while (!meDone || !dealerDone) {
+			
+			// check to see if the player has any chips left
 			
 			
 			// player's turn
@@ -52,6 +98,9 @@ public class GameRunner {
 			
 			//player hits
 			if (ans.compareToIgnoreCase("H") == 0) {
+				
+				
+				
 				
 				// add next card in deck. if player is busted, we are done.
 				meDone = !me.addCard(theDeck.dealNextCard());
@@ -96,6 +145,8 @@ public class GameRunner {
 		int dealerSum = dealer.getHandSum();
 		
 		
+		
+		
 		/**
 		 * if my score is greater than the dealer's score and still 21 or less I win.
 		 * if dealer busts but I'm 21 and under, I win.
@@ -128,5 +179,11 @@ public class GameRunner {
 			System.out.println("You win!");
 		}
 		
+		numChips = me.getChips();  //number of chips left
+		numCards = theDeck.getNumCards(); //number of cards left in deck
+		
+		me.printChips();
+		System.out.printf("There are %d cards left in the deck.",numCards);
+		//}
 	}
 }

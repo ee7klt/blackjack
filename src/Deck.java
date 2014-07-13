@@ -109,6 +109,11 @@ public class Deck {
 		//TO DO: if use top card is last index, can just pop, and garbage collect, instead of shifting all values
 		
 		//get top card
+		
+		if (this.numCards <= 0) {
+			System.err.printf("No more cards in deck. Cannot play anymore.\n");
+			System.exit(1);
+		}
 		Card top = this.myCards[0];
 		
 		//shift all cards to left by one
@@ -124,7 +129,9 @@ public class Deck {
 		return top;
 	}
 
-	
+	public int getNumCards() {
+		return numCards;
+	}
 	
 	/**
 	 * Print the top cards in the deck.

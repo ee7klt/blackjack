@@ -49,6 +49,10 @@ public class Player {
 		
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	
 	/**
 	 * add winnings to player's chips 
@@ -66,7 +70,7 @@ public class Player {
 		this.chips -= numChips;
 		
 		if (this.chips <= 0) {
-		   System.err.printf("%s bankrupt. Cannot play anymore.\n", this.name );
+		   System.err.printf("%s is bankrupt. Cannot play anymore.\n", this.name );
 		   System.exit(1);
 		}
 	}
@@ -77,6 +81,10 @@ public class Player {
 	 */
 	public void printChips() {
 		System.out.printf("%s has %d chips available",this.name,this.chips);
+	}
+	
+	public int getChips() {
+		return chips;
 	}
 	
 	
