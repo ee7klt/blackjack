@@ -37,7 +37,7 @@ public class GameRunner {
 		int numCards = 1;
 		
 		
-		//while (numChips >= 1 && numCards > 0) {
+		while (numChips >= 1 && numCards > 0) {
 			
 			me.addCard(theDeck.dealNextCard());
 			dealer.addCard(theDeck.dealNextCard());
@@ -60,6 +60,7 @@ public class GameRunner {
 			
 		//print initial hands
 		
+        System.out.println("========================");
 		System.out.println("Cards dealt\n");
 		me.printHand(true);
 		me.printHandSum();
@@ -76,18 +77,22 @@ public class GameRunner {
 		  bet = sc.nextInt();
 		  
 		//ask for bet amount
-		while (bet < 1 || bet >= numChips) {
-			me.printChips();
-			System.out.println();
-			  System.out.print("How many chips would you like to bet? (minimum 1): \n");
+		while (bet < 1 || bet > numChips) {
+			
+			
 			if (bet < 1) {
 				System.out.print("Please bet a minimum of 1 chip.\n");
+				me.printChips();
 			}
 			if (bet > numChips) {
 				System.out.printf("You have only %d chips\n", numChips);
 			}
+			
+			
+			System.out.println();
+			  System.out.print("How many chips would you like to bet? (minimum 1): \n");
+			  bet = sc.nextInt();
 	
-		  bet = sc.nextInt();
 		}
 		
 		while (!meDone || !dealerDone) {
@@ -120,7 +125,7 @@ public class GameRunner {
 			
 			// dealer's turn
 			if (!dealerDone) {
-				if (dealer.getHandSum() > 17) {
+				if (dealer.getHandSum() >= 17) {
 					System.out.println("The dealer stays.\n"); 
 					dealerDone = true;
 					dealer.printHand(false);
@@ -136,8 +141,7 @@ public class GameRunner {
 			System.out.println();
 		}
 		
-		//close scanner
-		sc.close();
+		
 		
 		// print final hands
 		System.out.println("Final hands:");
@@ -168,28 +172,36 @@ public class GameRunner {
 		// my score is higher than dealer's
 		if (mySum > dealerSum && mySum <= 21) {
 			System.out.println("You win!");
-			if (mySum == 21) { // winning blackjack pays 1.5x
-				
-			}
+			me.incrementChips(bet);
+			//TO DO: add a way to deal with blackjack because it pays winning of 1.5x
+			
 		} 
 		
 		// dealer's score is higher than mine
 		if (dealerSum > mySum && dealerSum <= 21) {
 			System.out.println("Dealer wins!");
+			me.decrementChips(bet);
 		}
 		
 		// I bust 
 		if (mySum > 21) {
 			System.out.println("Dealer wins!");
+			me.decrementChips(bet);
 		} else if (dealerSum >21) {  // dealer busts, but I don't
 			System.out.println("You win!");
+			me.incrementChips(bet);
 		}
 		
 		numChips = me.getChips();  //number of chips left
 		numCards = theDeck.getNumCards(); //number of cards left in deck
 		
 		me.printChips();
-		System.out.printf("There are %d cards left in the deck.",numCards);
-		//}
+		System.out.printf("There are %d cards left in the deck.\n",numCards);
+		System.out.println();
+		me.emptyHand();
+		dealer.emptyHand();
+		}
+		//close scanner
+				sc.close();
 	}
 }
