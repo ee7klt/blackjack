@@ -110,18 +110,15 @@ public class GameRunner {
 			//player hits
 			if (ans.compareToIgnoreCase("H") == 0) {
 				
-				
-				
-				
 				// add next card in deck. if player is busted, we are done.
 				meDone = !me.addCard(theDeck.dealNextCard());
 				me.printHand(true);
 				me.printHandSum();
 				System.out.println();
 				
-			} else { // player stays
+			} else  { // player stays
 				meDone = true;
-			}
+			} 
 			
 			// dealer's turn
 			if (!dealerDone) {
@@ -138,6 +135,8 @@ public class GameRunner {
 				}
 			}
 			
+			//System.out.printf("meDone = %b\n", meDone);
+			//System.out.printf("dealerDone = %b\n", dealerDone);
 			System.out.println();
 		}
 		
