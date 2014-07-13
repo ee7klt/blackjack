@@ -55,20 +55,8 @@ public class GameRunner {
 			numCards = theDeck.getNumCards(); //number of cards left in deck
 			
 			
-			//ask for bet amount
-			while (bet < 1 || bet >= numChips) {
-				me.printChips();
-				System.out.println();
-				  System.out.print("How many chips would you like to bet? (minimum 1): ");
-				if (bet < 1) {
-					System.out.print("Please bet a minimum of 1 chip.\n");
-				}
-				if (bet > numChips) {
-					System.out.printf("You have only %d chips", numChips);
-				}
+			
 		
-			  bet = sc.nextInt();
-			}
 			
 		//print initial hands
 		
@@ -82,7 +70,25 @@ public class GameRunner {
 		
 		System.out.println("\n");
 
+		me.printChips();
+		System.out.println();
+		  System.out.print("How many chips would you like to bet? (minimum 1): ");
+		  bet = sc.nextInt();
+		  
+		//ask for bet amount
+		while (bet < 1 || bet >= numChips) {
+			me.printChips();
+			System.out.println();
+			  System.out.print("How many chips would you like to bet? (minimum 1): \n");
+			if (bet < 1) {
+				System.out.print("Please bet a minimum of 1 chip.\n");
+			}
+			if (bet > numChips) {
+				System.out.printf("You have only %d chips\n", numChips);
+			}
 	
+		  bet = sc.nextInt();
+		}
 		
 		while (!meDone || !dealerDone) {
 			

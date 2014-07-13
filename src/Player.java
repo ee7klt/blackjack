@@ -80,7 +80,7 @@ public class Player {
 	 * 
 	 */
 	public void printChips() {
-		System.out.printf("%s has %d chips available",this.name,this.chips);
+		System.out.printf("%s has %d chips available\n",this.name,this.chips);
 	}
 	
 	public int getChips() {
